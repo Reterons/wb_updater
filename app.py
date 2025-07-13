@@ -58,15 +58,12 @@ def process_availability(df):
     return df.assign(counts=new_coll)
 
 def filter_by_brands(df):
-    new_tags = [
-        "Canson", "Carioca Plus", "Carioca", "Centropen", "Corvina", "Daler Rowney", 
-        "DAS", "DIMENSIONS", "Fabriano", "Giotto", "KOH-I-NOOR Hardtmuth", 
-        "KOH-I-NOOR", "KUM", "Lanarte", "LYRA", "Maped", "MENG", "Milan", 
-        "PARKER", "PEBEO", "Pentel", "PRECIOSA", "PRYM", "RIOLIS", "Sizzix", 
-        "Scheren-konig", "St. Cuthberts Mill", "Thea Gouverneur", "TOHO", 
-        "Tratto", "Vervaco", "Алиса", "Камтекс", "Нова Слобода", "Пехорский текстиль", 
-        "ПНК им. Кирова", "ПНК Красная нить", "Троицкая камвольная фабрика", "Чудесная игла"
-    ]
+    url = "https://docs.google.com/spreadsheets/d/15OM5gynhTPDGOqoKounaoUGS7Y40Xc5JXBbfyFE22fs/export?format=csv"
+    brands = pd.read_csv(url)
+    first_column = brands.iloc[:, 0]
+    new_tags = []
+    for i in first_column:
+        new_tags.append(i)
     pattern = r'\b(?:' + '|'.join(map(re.escape, new_tags)) + r')\b'
     mask = df['name'].str.contains(pattern, case=False, regex=True, na=False)
     return df[mask].copy()
