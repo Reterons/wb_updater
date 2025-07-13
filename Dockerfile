@@ -5,4 +5,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY app.py .
 COPY main.py .
 RUN mkdir -p /var/log/app
+EXPOSE 80
 CMD ["python", "main.py"]
