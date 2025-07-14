@@ -188,7 +188,7 @@ def main():
     new_df = filter_by_brands(df)
     
     all_cards = get_all_cards(WB_API_KEY)
-    stocks_data = prepare_products_data(new_df, all_cards)
+    stocks_data = prepare_products_data(df, all_cards)
     
     batch_size = 1000
     for i in range(0, len(stocks_data), batch_size):
